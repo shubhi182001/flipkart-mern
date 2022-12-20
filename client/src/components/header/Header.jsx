@@ -1,7 +1,7 @@
 import React from 'react'
 import {AppBar, Toolbar, styled, Box, Typography} from '@mui/material'
-import Search from '../search/Search'
-import CustomButtons from '../customButtons/CustomButtons'
+import Search from './Search'
+import CustomButtons from './CustomButtons'
 
 
 //How to use styled component in mui:
