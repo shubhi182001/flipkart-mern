@@ -37,7 +37,7 @@ const Header = () => {
         <StyledHeader>
             <Toolbar style={{minHeight:"55px"}}>
               <StyledBox>
-                <PlusImage src={logoUrl} alt="logo" style={{width:"75px"}} />
+                <PlusImage src={logoUrl} alt="logo" style={{width:"74px"}} />
                 <Box style={{display:"flex"}}>
                   <SubHeading>Explore&nbsp; 
                     <Box component="span" style={{color: '#FFE500'}}>
