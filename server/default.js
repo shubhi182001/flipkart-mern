@@ -5,8 +5,8 @@ const DefaultData = async() => {
         // await Product.deleteMany({});
         await Product.insertMany(products);
         console.log("data successfully inserted");
-    }catch(e){
-        console.log(e);
+    }catch(err){
+        console.log(err.message);
     }
 }
 
