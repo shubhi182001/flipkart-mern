@@ -7,7 +7,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { DataContext } from "../../context/DataProvider";
+
 import { authenticateSignup } from "../../service/api";
 
 
@@ -92,6 +94,8 @@ const signupInitialValues = {
 const LoginDialog = ({ open, setOpen }) => {
   const [account, toggleAccount] = useState(accountInitialValues.login)
   const [signup, setSignup] = useState(signupInitialValues);
+
+  const { setAccount} = useContext(DataContext);
   
   const toggleSignup = () => {
     toggleAccount(accountInitialValues.signup);
@@ -113,11 +117,15 @@ const LoginDialog = ({ open, setOpen }) => {
   const signupUser = async() => {
     try{
       let response = await authenticateSignup(signup);
-      console.log(response);
+      if(!response) return;
+      handleClose();
+      setAccount(signup.firstname);
     }catch(e){
       console.log(e);
     }
   }
+
+
 
   
 

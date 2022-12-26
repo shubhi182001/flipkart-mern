@@ -3,6 +3,8 @@ import React from 'react'
 import { useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LoginDialog from '../login/LoginDialog';
+import { useContext } from 'react';
+import { DataContext } from '../../context/DataProvider';
 const Wrapper = styled(Box)`
     display: flex;
     margin 0 3% 0 auto;
@@ -37,9 +39,14 @@ const CustomButtons = () => {
     const openDialog = () =>{
         setOpen(true);
     }
+    const {account} = useContext(DataContext);
   return (
     <Wrapper>
+        {
+            account? <Typography>{account}</Typography>:
         <LoginButton variant='contained' onClick={openDialog}>Login</LoginButton>
+
+        }
         <Typography style={{marginTop:3, width:135}}>Become a Seller</Typography>
         <Typography style={{marginTop:3}}>More</Typography>
         <Container>
