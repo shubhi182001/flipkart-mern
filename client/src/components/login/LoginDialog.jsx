@@ -37,7 +37,8 @@ const Component = styled(Box)`
       margin-top: 20px;
     }
   `;
-  const LoginButton = styled(Button)`
+  const 
+  LoginButton = styled(Button)`
     text-transform: none;
     background: #f86418;
     color: white;
@@ -110,7 +111,12 @@ const LoginDialog = ({ open, setOpen }) => {
   }
 
   const signupUser = async() => {
-    let response = await authenticateSignup(signup);
+    try{
+      let response = await authenticateSignup(signup);
+      console.log(response);
+    }catch(e){
+      console.log(e);
+    }
   }
 
   
