@@ -8,38 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { authenticateSignup } from "../../service/api";
 
 
-const accountInitialValues = {
-  login: {
-    view: 'login',
-    heading:"Login",
-    subHeading:"Get access to your Orders, Wishlist "
-  },
-  signup: {
-    view: 'signup',
-    heading:"Looks like you're new here",
-    subHeading: "Sign up with your mobile number to get started"
-  }
-}
-
-const LoginDialog = ({ open, setOpen }) => {
-   
-  const toggleSignup = () => {
-    toggleAccount(accountInitialValues.signup);
-  }
-  const toggleSignIn = () => {
-    toggleAccount(accountInitialValues.login)
-  }
-  
-  const handleClose = () => {
-    setOpen(false);
-    toggleAccount(accountInitialValues.login)
-  };
-
-  const [account, toggleAccount] = useState(accountInitialValues.login)
-
-  const Component = styled(Box)`
+const Component = styled(Box)`
     height: 70vh;
     width: 90vh;
   `;
@@ -93,6 +65,56 @@ const LoginDialog = ({ open, setOpen }) => {
     cursor: pointer;
   `;
 
+
+const accountInitialValues = {
+  login: {
+    view: 'login',
+    heading:"Login",
+    subHeading:"Get access to your Orders, Wishlist "
+  },
+  signup: {
+    view: 'signup',
+    heading:"Looks like you're new here",
+    subHeading: "Sign up with your mobile number to get started"
+  }
+}
+
+const signupInitialValues = {
+  firstname: "",
+  lastname: "",
+  username: "",
+  email: "",
+  password: "",
+  phone:""
+}
+
+const LoginDialog = ({ open, setOpen }) => {
+  const [account, toggleAccount] = useState(accountInitialValues.login)
+  const [signup, setSignup] = useState(signupInitialValues);
+  
+  const toggleSignup = () => {
+    toggleAccount(accountInitialValues.signup);
+  }
+  const toggleSignIn = () => {
+    toggleAccount(accountInitialValues.login)
+  }
+  
+  const handleClose = () => {
+    setOpen(false);
+    toggleAccount(accountInitialValues.login)
+  };
+
+  const onInputChange = (e) => {
+    setSignup({ ...signup, [e.target.name]: e.target.value });
+    console.log(signup);
+  }
+
+  const signupUser = async() => {
+    let response = await authenticateSignup(signup);
+  }
+
+  
+
   return (
     <Dialog
       open={open}
@@ -126,13 +148,13 @@ const LoginDialog = ({ open, setOpen }) => {
             </Wrapper>
           ) : (
             <Wrapper>
-              <TextField variant="standard" label="Enter Firstname" />
-              <TextField variant="standard" label="Enter Lastname" />
-              <TextField variant="standard" label="Enter Username" />
-              <TextField variant="standard" label="Enter Email" />
-              <TextField variant="standard" label="Enter Password" />
-              <TextField variant="standard" label="Enter Phone" />
-              <LoginButton>Sign Up</LoginButton>
+              <TextField variant="standard" onChange={(e) => onInputChange(e)} name="firstname" label="Enter Firstname" />
+              <TextField variant="standard" onChange={(e) => onInputChange(e)} name="lastname" label="Enter Lastname" />
+              <TextField variant="standard" onChange={(e) => onInputChange(e)} name="username" label="Enter Username" />
+              <TextField variant="standard" onChange={(e) => onInputChange(e)} name="email" label="Enter Email" />
+              <TextField variant="standard" onChange={(e) => onInputChange(e)} name="password" label="Enter Password" />
+              <TextField variant="standard" onChange={(e) => onInputChange(e)} name="phone" label="Enter Phone" />
+              <LoginButton onClick={() => signupUser()}>Sign Up</LoginButton>
 
               <CreateAccount onClick={() => toggleSignIn()}>Already have an account? Login Here</CreateAccount>
             </Wrapper>
