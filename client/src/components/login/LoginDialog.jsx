@@ -10,7 +10,7 @@ import {
 import { useState, useContext } from "react";
 import { DataContext } from "../../context/DataProvider";
 
-import { authenticateSignup } from "../../service/api";
+import { authenticateSignin, authenticateSignup } from "../../service/api";
 
 
 const Component = styled(Box)`
@@ -90,10 +90,15 @@ const signupInitialValues = {
   password: "",
   phone:""
 }
+const signinInitialValues = {
+  username:"",
+  password:""
+}
 
 const LoginDialog = ({ open, setOpen }) => {
   const [account, toggleAccount] = useState(accountInitialValues.login)
   const [signup, setSignup] = useState(signupInitialValues);
+  const [signin, setSignin] = useState(signinInitialValues);
 
   const { setAccount} = useContext(DataContext);
   
@@ -125,7 +130,23 @@ const LoginDialog = ({ open, setOpen }) => {
     }
   }
 
+  const onValueChange = (e) => {
+    setSignin({...signin, [e.target.name] : e.target.value});
+    console.log(signin);
+  }
 
+  const loginUser = async() => {
+    try{
+      let response = await authenticateSignin(signin);
+      console.log(response)
+      if(response.status === 200) {
+        handleClose();
+        setAccount(response.data.data.firstname);
+      }
+    }catch(e){
+      console.log(e);
+    }
+  }
 
   
 
@@ -149,13 +170,13 @@ const LoginDialog = ({ open, setOpen }) => {
           </Image>
           {account.view === 'login' ? (
             <Wrapper>
-              <TextField variant="standard" label="Enter Email/Phone number" />
-              <TextField variant="standard" label="Enter Password" />
+              <TextField variant="standard" onChange={(e) => onValueChange(e)} name="username" label="Enter Username" />
+              <TextField variant="standard" onChange={(e) => onValueChange(e)} name="password" label="Enter Password" />
               <Text>
                 By continuing, you agree to Flipkart's Terms of Use and Privacy
                 Policy{" "}
               </Text>
-              <LoginButton>Login</LoginButton>
+              <LoginButton onClick={() => loginUser()}>Login</LoginButton>
               <Typography style={{ textAlign: "center" }}>OR</Typography>
               <RequestOTP>Request OTP </RequestOTP>
               <CreateAccount onClick={() => toggleSignup()}>New to Flipkart? Create an account</CreateAccount>

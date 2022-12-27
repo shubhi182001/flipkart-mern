@@ -17,3 +17,21 @@ export const userSignup =async (req, res) => {
         res.status(500).json({message: e.message});
     }
 }
+
+export const userSignin = async(req, res) => {
+    try{
+        const username = req.body.username;
+        const password = req.body.password;
+        
+        const validUser = await User.findOne({username: username, password: password});
+        if(validUser){
+            return res.status(200).json( { data:validUser});
+        }
+        else{
+            return res.status(401).json('Invalid login')
+        }
+
+    }catch(e){
+        res.status(500).json('error', e.message);
+    }
+}
