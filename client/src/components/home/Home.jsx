@@ -7,6 +7,7 @@ import Navbar from './Navbar'
 import {useDispatch, useSelector} from 'react-redux';
 import Slide from './Slide'
 import FirstSlide from './FirstSlide'
+import MidSection from './MidSection'
 
 const Component = styled(Box)`
   padding: 10px;
@@ -31,6 +32,7 @@ const Home = () => {
           <FirstSlide products={products} title="Best of Electronics" deal={true}/>
           <Slide products={products} title="Beauty, Food, Toys & more" deal={false}/>
           <Slide products={products} title="Winter Essentials" deal={false}/>
+          <MidSection/>
           <Slide products={products} title="Wedding & Gifting Specials" deal={true}/>
           <Slide products={products} title="Sports, Healthcare & more" deal={false}/>
           <Slide products={products} title="New Year Specials" deal={true}/>

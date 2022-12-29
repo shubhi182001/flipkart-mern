@@ -8,7 +8,7 @@ import { Navigation } from "swiper";
 
 
 const Banner = () => {
-  
+   
   return (
     <>
       <Swiper autoplay={true} navigation={true} modules={[Navigation]} className="mySwiper">
