@@ -1,4 +1,4 @@
-import { Box, Button, styled, Typography } from '@mui/material';
+import { Box, Button, styled, Typography, Divider } from '@mui/material';
 import React, {useState} from 'react'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -49,6 +49,11 @@ const ViewAllButton = styled(Button)`
   font-weight: 600;
 `
 
+const Image = styled('img')({
+  width:'auto',
+  height: 150
+})
+
 const Slide = ({products}) => {
   const timeURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/timer_a73398.svg';
 
@@ -67,6 +72,7 @@ const Slide = ({products}) => {
       </Timer>
       <ViewAllButton variant='contained'>View All</ViewAllButton>
     </Deal>
+    <Divider/>
     <Carousel 
       responsive={responsive}
       swipeable={false}
@@ -82,7 +88,9 @@ const Slide = ({products}) => {
       >
       {
         products.map(product => (
-          <img src={product.url} alt="" /> 
+          <Box textAlign="center" style={{padding: "25px 15px"}}>
+            <Image src={product.url} alt="" /> 
+          </Box>
         ))
       }
     </Carousel>
