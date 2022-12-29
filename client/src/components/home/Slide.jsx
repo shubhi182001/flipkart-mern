@@ -54,7 +54,13 @@ const Image = styled('img')({
   height: 150
 })
 
-const Slide = ({products}) => {
+const Text = styled(Typography)`
+  font-size: 14px;
+  margin-top: 5px;
+
+`
+
+const Slide = ({products, title , deal}) => {
   const timeURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/timer_a73398.svg';
 
   const renderer = ({hours, minutes, seconds}) => {
@@ -64,12 +70,18 @@ const Slide = ({products}) => {
   return (
     <>
     <Component>
+      
     <Deal>
-      <DealText>Deal of the Day</DealText>
-      <Timer>
+      <DealText>{title}</DealText>
+      {deal?
+        <Timer>
         <img src={timeURL} alt="timer" style={{width:24}} />
         <Countdown date={Date.now() + 5.04e+7 } renderer={renderer} />
       </Timer>
+
+    :""  
+    }
+      
       <ViewAllButton variant='contained'>View All</ViewAllButton>
     </Deal>
     <Divider/>
@@ -90,6 +102,9 @@ const Slide = ({products}) => {
         products.map(product => (
           <Box textAlign="center" style={{padding: "25px 15px"}}>
             <Image src={product.url} alt="" /> 
+            <Text style={{fontWeight:"600", color:"#212121"}}>{product.title.shortTitle}</Text>
+            <Text style={{color:"green"}}>{product.discount}</Text>
+            <Text style={{color:"#212121", opacity:"0.6"}}>{product.tagline}</Text>
           </Box>
         ))
       }
