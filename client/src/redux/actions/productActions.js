@@ -11,3 +11,11 @@ export const getProducts = () => async(dispatch) => {
         dispatch({type:actionTypes.GET_PRODUCTS_FAIL, payload:e.message})
     }
 }
+
+export const getProductDetails = () => async(dispatch) => {
+    try{
+        
+    }catch(e){
+        
+    }
+}

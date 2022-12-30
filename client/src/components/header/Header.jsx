@@ -2,6 +2,7 @@ import React from 'react'
 import {AppBar, Toolbar, styled, Box, Typography} from '@mui/material'
 import Search from './Search'
 import CustomButtons from './CustomButtons'
+import {Link} from "react-router-dom";
 
 
 //How to use styled component in mui:
@@ -9,9 +10,11 @@ const StyledHeader = styled(AppBar)`
     background: #514CE8k;
     height: 55px;
 `
-const StyledBox = styled(Box)`
+const StyledBox = styled(Link)`
   	margin-left: 12%;
     line-height: 0;
+    text-decoration: none;
+    color: inherit;
 `
 const SubHeading = styled(Typography)`
     font-size: 10px;
@@ -36,7 +39,7 @@ const Header = () => {
     <div className='header'>
         <StyledHeader>
             <Toolbar style={{minHeight:"55px"}}>
-              <StyledBox>
+              <StyledBox to="/">
                 <PlusImage src={logoUrl} alt="logo" style={{width:"74px"}} />
                 <Box style={{display:"flex"}}>
                   <SubHeading>Explore&nbsp; 
