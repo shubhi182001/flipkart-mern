@@ -1,8 +1,10 @@
 import React from 'react'
-import {AppBar, Toolbar, styled, Box, Typography} from '@mui/material'
+import {AppBar, Toolbar, styled, Box, Typography, IconButton, Drawer,List, ListItem} from '@mui/material'
 import Search from './Search'
 import CustomButtons from './CustomButtons'
 import {Link} from "react-router-dom";
+import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from 'react';
 
 
 //How to use styled component in mui:
@@ -25,13 +27,48 @@ const PlusImage = styled('img')({
   height:10,
   marginLeft: 4
 })
-const CustomButtonWrapper = styled(Box)`
-    margin: 0 5% 0 auto;
-`
+const CustomButtonWrapper = styled(Box)(({theme}) => ({
+  margin: "0 5% 0 auto",
+  [theme.breakpoints.down('md')]: {
+    display: "none"
+  }
+}))
+    
+const MenuButton = styled(MenuIcon)(({theme}) => ({
+  display:"none",
+  [theme.breakpoints.down('md')]:{
+    display:"block"
+  }
+}))
+
+
 
 
 
 const Header = () => {
+
+  const[drawerOpen, setDrawerOpen] = useState(false);
+  const handleOpen = () => {
+    setDrawerOpen(true);
+  }
+  
+  const handleClose = () => {
+    setDrawerOpen(false);
+  }
+
+  const list = () => {
+    return(
+    <Box style={{width: 200}} onClick={handleClose}>
+      <List>
+        <ListItem button>
+          <CustomButtons/>
+        </ListItem>
+      </List>
+    </Box>
+
+    )
+  }
+  
 
   const logoUrl = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png';
   const subUrl =  'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png';
@@ -39,6 +76,15 @@ const Header = () => {
     <div className='header'>
         <StyledHeader>
             <Toolbar style={{minHeight:"55px"}}>
+              <IconButton color='inherit' onClick={handleOpen}>
+                <MenuButton />
+              </IconButton>
+
+              <Drawer open={drawerOpen} onClose={handleClose}>
+                {list()}
+              </Drawer>
+
+
               <StyledBox to="/">
                 <PlusImage src={logoUrl} alt="logo" style={{width:"74px"}} />
                 <Box style={{display:"flex"}}>
