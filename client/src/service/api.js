@@ -22,3 +22,12 @@ export const authenticateSignin = async(data) => {
         console.log("signin error", e);
     }
 }
+
+export const payUsingPaytm = async(data) => {
+    try{
+        let response = await axios.post(`${URL}/payment`, data);
+        return response.data;
+    }catch(e){
+        console.log("Error while calling paytm Api", e);
+    }
+}
